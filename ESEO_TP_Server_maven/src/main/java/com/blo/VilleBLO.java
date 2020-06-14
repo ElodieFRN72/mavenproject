@@ -12,4 +12,8 @@ public interface VilleBLO {
 	
 	public void creerVille(Ville ville);
 	
+	public void supprimerVille(Ville ville);
+	
+	public void modifierVille(Ville ville);
+	
 }

@@ -11,5 +11,9 @@ public interface VilleDAO {
 	public Ville findVille(String name);
 	
 	public void creerVille(Ville ville);
+	
+	public void supprimerVille(Ville ville);
+	
+	public void modifierVille(Ville ville);
 
 }

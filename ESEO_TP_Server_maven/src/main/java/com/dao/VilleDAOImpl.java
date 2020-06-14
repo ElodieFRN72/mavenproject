@@ -71,26 +71,26 @@ public class VilleDAOImpl implements VilleDAO {
 	}
 	
 	public void creerVille(Ville ville){
-		PreparedStatement preparedStatement = null;
+		
+		Connection con = JDBCConfiguration.getConnection();
 		try {
 			
-			String query = SQL_INSERT ;
+			String query = "INSERT INTO ville_france VALUES(?,?,?,?,?,?,?)" ;
+			PreparedStatement preparedStatement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-			preparedStatement = JDBCConfiguration.getConnection()
-					.prepareStatement(
-							initialisationRequetePreparee(query, ville.getCode_commune_INSEE(), ville.getNom_commune(),
-									ville.getCode_postal(), ville.getLibelle_acheminement(), ville.getLigne_5(),
-									ville.getLatitude(),ville.getLongitude()),
-							Statement.RETURN_GENERATED_KEYS);
-			// execute the query, and get a java resultset
+
+			preparedStatement.setString(1, ville.getCode_commune_INSEE());
+			preparedStatement.setString(2, ville.getNom_commune());
+			preparedStatement.setString(3, ville.getCode_postal());
+			preparedStatement.setString(4, ville.getLibelle_acheminement());
+			preparedStatement.setString(5, ville.getLigne_5());
+			preparedStatement.setString(6, ville.getLatitude());
+			preparedStatement.setString(7, ville.getLongitude());
 			preparedStatement.executeUpdate();
 			
 			
-				System.out.println("Ligne insérée");
-				
-			
-		
-	
+			System.out.println("Ligne insérée");
+
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -98,15 +98,38 @@ public class VilleDAOImpl implements VilleDAO {
 	}
 	
 	
-	
-	
-	protected static String initialisationRequetePreparee(String sql, Object... objets) {
-		String[] listeSQL = (sql+" ").split("\\?");
-		StringBuilder newSQL = new StringBuilder(listeSQL[0]);
-		for(int i = 0; i<objets.length; i++) {
-			newSQL.append("\"" + objets[i] + "\"" + listeSQL[i+1]);
+	public void supprimerVille(Ville ville) {
+		Connection con = JDBCConfiguration.getConnection();
+		try {
+			String query = "DELETE FROM ville_france WHERE code_commune_INSEE= ?";
+			PreparedStatement preparedstatement = con.prepareStatement(query);
+			
+			preparedstatement.setString(1, ville.getCode_commune_INSEE());
+			preparedstatement.executeUpdate();
+			
+			System.out.println("Ligne supprimée");
+			
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return newSQL.toString().replaceAll("\"null\"", "null");
+	}
+	
+	public void modifierVille(Ville ville) {
+		Connection con = JDBCConfiguration.getConnection();
+		try {
+			String query = "UPDATE ville_france SET code_postal= ? WHERE code_commune_INSEE= ?";
+			PreparedStatement preparedstatement = con.prepareStatement(query);
+			
+			preparedstatement.setString(1, ville.getCode_postal());
+			preparedstatement.setString(2, ville.getCode_commune_INSEE());
+			preparedstatement.executeUpdate();
+			
+			System.out.println("Ligne modifiée");
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

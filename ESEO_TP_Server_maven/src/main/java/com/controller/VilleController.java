@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,8 +46,21 @@ class VilleController {
 			return ville;
 		}
 		
+	// Methode POST
 		@PostMapping("create")
 		public void CreerVille(@RequestBody Ville nouvelleVille) {
 			villeBLOService.creerVille(nouvelleVille);
+		}
+		
+	// Methode DELETE
+		@DeleteMapping("delete")
+		public void SupprimerVille(@RequestBody Ville nouvelleVille) {
+			villeBLOService.supprimerVille(nouvelleVille);
+		}
+		
+	// Methode PUT
+		@PutMapping("update")
+		public void ModifierVille(@RequestBody Ville nouvelleVille) {
+			villeBLOService.modifierVille(nouvelleVille);
 		}
 }
