@@ -32,6 +32,48 @@ public class VilleDAOImpl implements VilleDAO {
 				ville.setNom_commune(rs.getString("Nom_Commune"));
 				ville.setCode_commune_INSEE(rs.getString("Code_commune_INSEE"));
 				ville.setCode_postal(rs.getString("Code_postal"));
+				ville.setLibelle_acheminement(rs.getString("Libelle_acheminement"));
+				ville.setLigne_5(rs.getString("Ligne_5"));
+				ville.setLatitude(rs.getString("Latitude"));
+				ville.setLongitude(rs.getString("Longitude"));
+				
+				
+				villes.add(ville);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return villes;
+	}
+	
+public ArrayList<Ville> trouverVilles(Ville ville) {
+		
+		Connection con = JDBCConfiguration.getConnection();
+		
+		ArrayList<Ville> villes = new ArrayList();
+		
+		
+		try {
+			String query = "SELECT * FROM ville_france WHERE Code_commune_INSEE ="+ville.getCode_commune_INSEE();
+
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while (rs.next()) {
+				ville = new Ville();
+				ville.setNom_commune(rs.getString("Nom_Commune"));
+				ville.setCode_commune_INSEE(rs.getString("Code_commune_INSEE"));
+				ville.setCode_postal(rs.getString("Code_postal"));
+				ville.setLibelle_acheminement(rs.getString("Libelle_acheminement"));
+				ville.setLigne_5(rs.getString("Ligne_5"));
+				ville.setLatitude(rs.getString("Latitude"));
+				ville.setLongitude(rs.getString("Longitude"));
+				
+				
 				villes.add(ville);
 			}
 
@@ -115,14 +157,14 @@ public class VilleDAOImpl implements VilleDAO {
 		}
 	}
 	
-	public void modifierVille(Ville ville) {
+	public void modifierVille(Ville ville, String codecommu) {
 		Connection con = JDBCConfiguration.getConnection();
 		try {
 			String query = "UPDATE ville_france SET code_postal= ? WHERE code_commune_INSEE= ?";
 			PreparedStatement preparedstatement = con.prepareStatement(query);
 			
 			preparedstatement.setString(1, ville.getCode_postal());
-			preparedstatement.setString(2, ville.getCode_commune_INSEE());
+			preparedstatement.setString(2, codecommu);
 			preparedstatement.executeUpdate();
 			
 			System.out.println("Ligne modifiée");

@@ -14,6 +14,8 @@ public interface VilleDAO {
 	
 	public void supprimerVille(Ville ville);
 	
-	public void modifierVille(Ville ville);
+	public void modifierVille(Ville ville, String codecommu);
+	
+	public ArrayList<Ville> trouverVilles(Ville ville);
 
 }

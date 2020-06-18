@@ -8,12 +8,14 @@ public interface VilleBLO {
 
 	public ArrayList<Ville> getInfoVilles();
 	
+	public ArrayList<Ville> trouverVilles(Ville ville);
+	
 	public Ville getInfoVille(String name);
 	
 	public void creerVille(Ville ville);
 	
 	public void supprimerVille(Ville ville);
 	
-	public void modifierVille(Ville ville);
+	public void modifierVille(Ville ville, String code);
 	
 }

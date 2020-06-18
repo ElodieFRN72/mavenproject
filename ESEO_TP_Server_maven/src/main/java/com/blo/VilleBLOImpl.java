@@ -21,6 +21,13 @@ public class VilleBLOImpl implements VilleBLO {
 		return ville;
 	}
 	
+	public ArrayList<Ville> trouverVilles(Ville villes){
+		ArrayList<Ville> ville;
+		
+		ville = villeDAO.trouverVilles(villes);
+		return ville;
+	}
+	
 	public Ville getInfoVille(String name) {
 		Ville ville;
 		
@@ -36,8 +43,8 @@ public class VilleBLOImpl implements VilleBLO {
 		villeDAO.supprimerVille(ville);
 	}
 	
-	public void modifierVille(Ville ville) {
-		villeDAO.modifierVille(ville);
+	public void modifierVille(Ville ville, String code) {
+		villeDAO.modifierVille(ville,code);
 	}
 
 }
