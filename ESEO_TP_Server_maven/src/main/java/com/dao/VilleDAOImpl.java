@@ -160,11 +160,16 @@ public ArrayList<Ville> trouverVilles(Ville ville) {
 	public void modifierVille(Ville ville, String codecommu) {
 		Connection con = JDBCConfiguration.getConnection();
 		try {
-			String query = "UPDATE ville_france SET code_postal= ? WHERE code_commune_INSEE= ?";
+			String query = "UPDATE ville_france SET code_postal= ?, nom_commune= ?, libelle_acheminement= ?, ligne_5= ?, latitude= ?, longitude= ? WHERE code_commune_INSEE= ?";
 			PreparedStatement preparedstatement = con.prepareStatement(query);
 			
 			preparedstatement.setString(1, ville.getCode_postal());
-			preparedstatement.setString(2, codecommu);
+			preparedstatement.setString(2, ville.getNom_commune());
+			preparedstatement.setString(3, ville.getLibelle_acheminement());
+			preparedstatement.setString(4, ville.getLigne_5());
+			preparedstatement.setString(5, ville.getLatitude());
+			preparedstatement.setString(6, ville.getLongitude());
+			preparedstatement.setString(7, codecommu);
 			preparedstatement.executeUpdate();
 			
 			System.out.println("Ligne modifiée");
