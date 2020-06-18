@@ -14,7 +14,7 @@ public interface VilleBLO {
 	
 	public void creerVille(Ville ville);
 	
-	public void supprimerVille(Ville ville);
+	public void supprimerVille(String codeville);
 	
 	public void modifierVille(Ville ville, String code);
 	

@@ -140,13 +140,13 @@ public ArrayList<Ville> trouverVilles(Ville ville) {
 	}
 	
 	
-	public void supprimerVille(Ville ville) {
+	public void supprimerVille(String code) {
 		Connection con = JDBCConfiguration.getConnection();
 		try {
 			String query = "DELETE FROM ville_france WHERE code_commune_INSEE= ?";
 			PreparedStatement preparedstatement = con.prepareStatement(query);
 			
-			preparedstatement.setString(1, ville.getCode_commune_INSEE());
+			preparedstatement.setString(1, code);
 			preparedstatement.executeUpdate();
 			
 			System.out.println("Ligne supprimée");

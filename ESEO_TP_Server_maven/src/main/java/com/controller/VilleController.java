@@ -64,10 +64,10 @@ class VilleController {
 		}
 		
 	// Methode DELETE
-		@DeleteMapping("delete")
-		public void SupprimerVille(@RequestBody Ville nouvelleVille) {
-			villeBLOService.supprimerVille(nouvelleVille);
-		}
+//		@DeleteMapping("delete")
+//		public void SupprimerVille(@RequestBody Ville nouvelleVille) {
+//			villeBLOService.supprimerVille(nouvelleVille);
+//		}
 		
 //	// Methode PUT
 //		@PutMapping("update")
@@ -94,5 +94,10 @@ class VilleController {
 		@PutMapping("update/{codeCommune}")
 		public void modifier(@RequestBody Ville villeModif, @PathVariable("codeCommune") String codeCommune) {
 			villeBLOService.modifierVille(villeModif, codeCommune);
+		}
+		
+		@DeleteMapping("/delete/{codeCommune}")
+		public void supprimer(@PathVariable("codeCommune") String codeCommuneINSEE) {
+			villeBLOService.supprimerVille(codeCommuneINSEE);
 		}
 }
